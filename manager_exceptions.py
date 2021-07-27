@@ -4,3 +4,11 @@ class GroupNotFoundException(Exception):
 
 class KeyNotFoundException(Exception):
     pass
+
+
+class WrongDecryptionKeyException(Exception):
+    pass
+
+
+class CommandNotFoundException(Exception):
+    pass

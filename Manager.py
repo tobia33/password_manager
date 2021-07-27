@@ -1,6 +1,6 @@
 from collections import deque
 import copy
-import cryptography_user
+import manager_support
 import manager_exceptions
 
 
@@ -74,7 +74,7 @@ class Manager:
         # salvo contenuto nello stack
         self.stack_undo.append(copy.deepcopy(self.data_table))
         if decryption_key is not False:
-            value = cryptography_user.encript(value, decryption_key)
+            value = manager_support.encript(value, decryption_key)
         self.data_table[group][key] = value
 
     def get(self, group, key, decryption_key):
@@ -88,7 +88,7 @@ class Manager:
             raise manager_exceptions.KeyNotFoundException
         value = self.data_table[group][key]
         if decryption_key is not False:
-            value = cryptography_user.decript(value, decryption_key)
+            value = manager_support.decript(value, decryption_key)
         return value
 
     def delete(self, group, key=None):
