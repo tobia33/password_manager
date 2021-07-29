@@ -11,13 +11,14 @@ def encrypt(value, decryption_key):
 
 
 def fernet_compatible(decryption_key):
+    """ modify the password making it fernet compatible """
     while len(decryption_key) < 43:
         decryption_key += decryption_key
     return decryption_key[:43] + '='
 
 
 def decrypt(value, decryption_key):
-    """ decrypt the value using the  t=decryption key """
+    """ decrypt the value using the decryption key """
     fernet = Fernet(str.encode(decryption_key))
     return fernet.decrypt(str.encode(value)).decode()
 
@@ -137,7 +138,6 @@ def executeCommand(manager, command, decryption_key):
             manager.delete(addressing_mode[0], addressing_mode[1])
         else:
             manager.delete(addressing_mode[0])
-
         return manager
     elif opcode == "print_group":
         print(manager.group_data_string(addressing_mode[0]))
