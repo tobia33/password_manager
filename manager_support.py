@@ -1,6 +1,5 @@
 from cryptography.fernet import Fernet
 import manager_exceptions
-import base64
 "------------------------------cryptography------------------------------"
 
 
@@ -87,22 +86,22 @@ def helpExpl():
 
 def explanationManager(command):
     """ manages the explanations for the commands """
-    if command == "add":
+    if command == "hadd":
         print(addExpl())
-    elif command == "get":
+    elif command == "hget":
         print(getExpl())
-    elif command == "delete":
+    elif command == "hdelete":
         print(delExpl())
-    # elif command == "undo":
-    #     print(undoExpl())
-    # elif command == "redo":
-    #     print(redoExpl())
-    # elif command == "print_all":
-    #     print(printAllExpl())
-    # elif command == "print_group":
-    #     print(printGroupExpl())
-    # elif command == "reset":
-    #     print(resetExpl())
+    elif command == "hundo":
+        print(undoExpl())
+    elif command == "hredo":
+        print(redoExpl())
+    elif command == "hprint_all":
+        print(printAllExpl())
+    elif command == "hprint_group":
+        print(printGroupExpl())
+    elif command == "hreset":
+        print(resetExpl())
     elif command == "help":
         print(helpExpl())
     else:
