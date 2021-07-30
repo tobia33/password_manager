@@ -92,7 +92,7 @@ class Manager:
         value = self.data_table[group][key]
         if decryption_key != "false":
             value = manager_support.decrypt(value, decryption_key)
-        return key + value
+        return key + ": " + value + "\n"
 
     def delete(self, group, key=None):
         """ deletes the specified key or group
@@ -138,7 +138,7 @@ class Manager:
         """ prints the data in data_table of a single group  """
         if group not in self.data_table:
             raise manager_exceptions.GroupNotFoundException
-        data_string = "\t# " + group + ":"
+        data_string = "\n\t# " + group + ":"
         for key in self.data_table[group]:
             if self.data_table[group][key][-1] == "=":
                 data_string += "\n\t\t- " + key + " : " + "********"

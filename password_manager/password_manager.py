@@ -1,4 +1,7 @@
 import os
+
+import cryptography.exceptions
+
 import Manager
 import manager_exceptions
 import manager_support
@@ -6,7 +9,6 @@ from getpass import getpass
 
 print("Welcome to Password Manager!")
 print("choose the data file you want to work with\n")
-os.system("ls")
 manager = Manager.Manager("./data")
 manager.load_data()
 while True:
@@ -26,29 +28,33 @@ while True:
     nonExplanation = manager_support.explanationManager(command)
     if nonExplanation:
         decryption_key = None
-        if command[:3] == "add" or command[:3] == "get":
-            decryption_key1 = getpass("write the decryption key you want to use")
-            decryption_key2 = getpass("write it again please")
-            if decryption_key1 != decryption_key2:
-                print("the decryption keys are different!\n")
-                input("press ENTER to continue\n")
-                continue
-            decryption_key = decryption_key1
+        if command[:3] == "add":
+            decryption_key = input("write the decryption key you want to use\n")
+        elif command[:3] == "get":
+            decryption_key = getpass("write the decryption key you want to use\n")
         try:
             manager = manager_support.executeCommand(manager, command, decryption_key)
         except Exception as e:
             if isinstance(e, manager_exceptions.GroupNotFoundException):
-                print("the given group is invalid, try changing it!\n")
+                print("\nthe given group is invalid, try changing it!\n")
                 input("press ENTER to continue")
                 continue
             elif isinstance(e, manager_exceptions.KeyNotFoundException):
-                print("the given key is invalid, try changing it!\n")
+                print("\nthe given key is invalid, try changing it!\n")
                 input("press ENTER to continue")
                 continue
             elif isinstance(e, manager_exceptions.CommandNotFoundException):
-                print("the given command is invalid, try changing it!\n")
+                print("\nthe given command is invalid, try changing it!\n")
+                input("press ENTER to continue")
+                continue
+            elif isinstance(e, ValueError):
+                print("\nthe decryption_key is invalid, try another one please\n")
+                input("press ENTER to continue")
+                continue
+            elif isinstance(e, cryptography.exceptions.InvalidSignature):
+                print("\nthe decryption_key is wrong, try again and change it!\n")
                 input("press ENTER to continue")
                 continue
             else:
                 raise e.with_traceback()
-    continue
+    print("\noperation completed successfully!\n")

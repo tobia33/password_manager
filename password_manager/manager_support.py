@@ -9,16 +9,19 @@ def encrypt(value, decryption_key):
     fernet = Fernet(str.encode(decryption_key))
     return fernet.encrypt(str.encode(value)).decode()
 
-
 def fernet_compatible(decryption_key):
     """ modify the password making it fernet compatible """
     while len(decryption_key) < 43:
         decryption_key += decryption_key
+    decryption_key = decryption_key.replace("'", "a")
+    decryption_key = decryption_key.replace("`", "b")
+    decryption_key = decryption_key.replace(" ", "c")
     return decryption_key[:43] + '='
 
 
 def decrypt(value, decryption_key):
     """ decrypt the value using the decryption key """
+    decryption_key = fernet_compatible(decryption_key)
     fernet = Fernet(str.encode(decryption_key))
     return fernet.decrypt(str.encode(value)).decode()
 
@@ -30,7 +33,7 @@ def addExpl():
     """ return the explanation of the command add """
     return "\tsyntax: add group key value\n" + \
            "\tadd value in the specified group and with the specified key\n" + \
-           "\tthe value is encrypted using the decryption_key asked via prompt" + \
+           "\tthe value is encrypted using the decryption_key asked via prompt\n" + \
            "\tif the decryption_key is False the value will not be encrypted\n\n"
 
 
@@ -38,7 +41,8 @@ def getExpl():
     """ return the explanation of the command get """
     return "\tsyntax: get group key\n" + \
            "\tget the value of the specified group of the specified key\n" + \
-           "\tthe value is decrypted using the decryption_key asked via prompt\n\n"
+           "\tthe value is decrypted using the decryption_key asked via prompt\n" +\
+           "\tif the decryption_key is False the value will not be decrypted\n\n"
 
 
 def delExpl():
