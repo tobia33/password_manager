@@ -47,8 +47,9 @@ def getExpl():
 
 def delExpl():
     """ return the explanation of the command delete """
-    return "\tsyntax: delete group [key]\n" + \
-           "\tdelete the specified group or, if present, the specified key\n\n"
+    return "\tsyntax: delete group key\n" + \
+           "\tdelete the specified key of the specified group\n" +\
+           "\tyou need to insert the correct decryption key you used to encrypt the password\n\n"
 
 
 def undoExpl():
@@ -138,11 +139,9 @@ def executeCommand(manager, command, decryption_key):
         print("\n" + manager.get(addressing_mode[0], addressing_mode[1], decryption_key))
         return manager
     elif opcode == "delete":
-        if len(addressing_mode) == 2:
-            manager.delete(addressing_mode[0], addressing_mode[1])
-        else:
-            manager.delete(addressing_mode[0])
-        return manager
+        if addressing_mode:
+            manager.delete(addressing_mode[0], addressing_mode[1], decryption_key)
+            return manager
     elif opcode == "print_group":
         print(manager.group_data_string(addressing_mode[0]))
         return manager

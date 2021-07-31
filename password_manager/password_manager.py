@@ -9,7 +9,7 @@ from getpass import getpass
 
 print("Welcome to Password Manager!")
 print("choose the data file you want to work with\n")
-manager = Manager.Manager("./data")
+manager = Manager.Manager("/home/tobia/projects/git_workspace/password_manager/password_manager/data")
 manager.load_data()
 while True:
     print("-------------------------------------------------------------------------")
@@ -32,6 +32,8 @@ while True:
             decryption_key = input("write the decryption key you want to use\n")
         elif command[:3] == "get":
             decryption_key = getpass("write the decryption key you want to use\n")
+        elif command[:6] == "delete":
+            decryption_key = getpass("write the decryption key needed to decrypt this password\n")
         try:
             manager = manager_support.executeCommand(manager, command, decryption_key)
         except Exception as e:
@@ -52,6 +54,10 @@ while True:
                 input("press ENTER to continue")
                 continue
             elif isinstance(e, cryptography.exceptions.InvalidSignature):
+                print("\nthe decryption_key is wrong, try again and change it!\n")
+                input("press ENTER to continue")
+                continue
+            elif isinstance(e, cryptography.fernet.InvalidToken):
                 print("\nthe decryption_key is wrong, try again and change it!\n")
                 input("press ENTER to continue")
                 continue

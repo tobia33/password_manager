@@ -94,20 +94,24 @@ class Manager:
             value = manager_support.decrypt(value, decryption_key)
         return key + ": " + value + "\n"
 
-    def delete(self, group, key=None):
+    def delete(self, group, key, decryption_key):
         """ deletes the specified key or group
             raise an error if the group or the key are not found"""
         # salvo contenuto nello stack
         self.stack_undo.append(copy.deepcopy(self.data_table))
         if group not in self.data_table:
             raise manager_exceptions.GroupNotFoundException
-        if key is not None:
-            if key not in self.data_table[group]:
-                raise manager_exceptions.KeyNotFoundException
-            self.data_table[group].pop(key)
-            if self.data_table[group] == {}:
-                self.data_table.pop(group)
-        else:
+        if key not in self.data_table[group]:
+            raise manager_exceptions.KeyNotFoundException
+        try:
+            self.get(group, key, decryption_key)
+        except Exception as e:
+            if isinstance(e, manager_exceptions.WrongDecryptionKeyException):
+                raise e
+            else:
+                raise e.with_traceback()
+        self.data_table[group].pop(key)
+        if self.data_table[group] == {}:
             self.data_table.pop(group)
 
     def undo(self):
