@@ -1,21 +1,19 @@
 import os
 
-import cryptography.exceptions
-
+from cryptography.exceptions import InvalidSignature
+from cryptography.fernet import InvalidToken
 import Manager
 import manager_exceptions
 import manager_support
 from getpass import getpass
-
 print("Welcome to Password Manager!")
-print("choose the data file you want to work with\n")
-manager = Manager.Manager("/home/tobia/projects/git_workspace/password_manager/password_manager/data")
+manager = Manager.Manager("/home/tobia/projects/git_workspace/password_manager/password_manager_py/data")
 manager.load_data()
 while True:
     print("-------------------------------------------------------------------------")
-    print(">most used commands: 'add', 'get', 'delete'")
+    print(">most used commands: 'add', 'get', 'delete'\n")
     print(">if you write their name preceded by 'h' you will get a mini-explanation,")
-    print("for example 'hadd', 'hget',... give it a try!")
+    print("for example 'hadd', 'hget',... give it a try!\n")
     print(">for a list of all commands and their usage just write 'help'")
     print(">write quit to save the session and quit, clear to clear the terminal\n")
     command = input()
@@ -53,14 +51,17 @@ while True:
                 print("\nthe decryption_key is invalid, try another one please\n")
                 input("press ENTER to continue")
                 continue
-            elif isinstance(e, cryptography.exceptions.InvalidSignature):
+            elif isinstance(e, InvalidSignature):
                 print("\nthe decryption_key is wrong, try again and change it!\n")
                 input("press ENTER to continue")
                 continue
-            elif isinstance(e, cryptography.fernet.InvalidToken):
+            elif isinstance(e, InvalidToken):
                 print("\nthe decryption_key is wrong, try again and change it!\n")
                 input("press ENTER to continue")
                 continue
             else:
-                raise e.with_traceback()
+                save = input("an error has occurred, do you want to save before interrupting?\n\t(y/n)")
+                if save != "n" and save != "no":
+                    manager.write_data()
+                raise e
     print("\noperation completed successfully!\n")

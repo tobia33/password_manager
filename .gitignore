@@ -1,3 +1,4 @@
 __pycache__
 venv
 .idea
+/password_manager_app/nbproject/private/

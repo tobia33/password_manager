@@ -130,6 +130,7 @@ def executeCommand(manager, command, decryption_key):
         return manager
     elif command == "print_all":
         print(manager.all__data_string())
+        input("press ENTER to continue")
         return manager
     opcode, *addressing_mode = command.split()
     if opcode == "add":

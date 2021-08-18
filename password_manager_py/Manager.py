@@ -83,7 +83,7 @@ class Manager:
     def get(self, group, key, decryption_key):
         """ get the value for the specified group and key
             the value will be decrypted using the given decryption key
-            if decryption_key is 'false' the value will not be decripted
+            if decryption_key is 'false' the value will not be decrypted
             raise an error if the group or the key are not found"""
         if group not in self.data_table:
             raise manager_exceptions.GroupNotFoundException
@@ -144,7 +144,7 @@ class Manager:
             raise manager_exceptions.GroupNotFoundException
         data_string = "\n\t# " + group + ":"
         for key in self.data_table[group]:
-            if self.data_table[group][key][-1] == "=":
+            if self.data_table[group][key][-1] == "=" or len(self.data_table[group][key]) > 99:
                 data_string += "\n\t\t- " + key + " : " + "********"
             else:
                 data_string += "\n\t\t- " + key + " : " + self.data_table[group][key]
