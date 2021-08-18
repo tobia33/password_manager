@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Password manager</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/password_manager_app/css_global/reset.css">
+        <link rel="stylesheet" href="/password_manager_app/css_global/my_setup.css">
+        <link rel="stylesheet" href="/password_manager_app/css_global/footer.css">
+        <link rel="stylesheet" href="add.css">
+
+        
+    </head>
+    <body>
+        <div id="wrapper">
+        <h1>PASSWORD MANAGER</h1>
+        <div id="description">
+                <h3>ADD</h3>
+                <p>
+                    the add command adds into the data set a password <br>
+                    you choose a password name and a group in which to store your data <br>
+                    you also give a decryption key, that is the key
+                    around which your password will be encrypted, in other words
+                    the only password you are not allowed to forget!
+                </p>
+            </div>
+        <main>
+            <ul>
+                <li><a class="block" href="/password_manager_app/start_managing/start.html"><img src="/password_manager_app/images/go_back.png" alt="back"/></a></li>
+                <li><label for="group">group name</label></li>
+                <li><input id="group" type="text"></li>
+                <li><label for="password">password name</label></li>
+                <li><input id="password" type="text"></li>
+                <li><label for="decryption_key">decryption key</label></li>
+                <li><input id="decryption_key" type="text"></li>
+                <li><button>submit</button></li>
+            </ul>
+        </main>
+        <footer>
+            <div id="contact_txt">
+                if you want you can contact me! <br>
+                just press the mail button
+            </div>
+            <div id="contact_img">
+                <a class="block"><img src="/password_manager_app/images/mail-logo.jpg" alt="click me to send a mail to the app maker"/></a>
+            </div>
+        </footer>
+    </div>
+    </body>
+</html>

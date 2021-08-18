@@ -1,0 +1,22 @@
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+html {
+    color: #212121;
+    background-color: #fff;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+a.block {
+    text-decoration: none;
+    color: currentColor;
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+button.block {}
+a:visited {
+    color:currentColor;
+}

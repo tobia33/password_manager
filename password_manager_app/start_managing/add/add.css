@@ -1,0 +1,77 @@
+body {
+    margin-top: 20px;
+}
+#wrapper {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: minmax(50%, 70%);
+    grid-template-rows: auto 50px auto 60px auto ;
+}
+h1 {
+    grid-row: 1;
+    color: #9421e0;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    font-family: roman serif;
+}
+#description {
+    grid-row: 5;
+    border: solid #9421e0 3px;
+    background-color: #ffe6ff;
+    border-radius: 15px;
+    padding: 7px;
+    font-size: 1.1rem
+}
+#description h3 {
+    font-size: 1.4rem;
+    text-align: center;
+}
+main {
+    grid-row: 3;
+}
+main ul {
+    display: flex;
+    flex-direction: column;
+
+}
+main li {
+    width: 100%;
+}
+main input, main button {
+    width: 100%;
+    font-size: 1.2rem;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border: solid #9421e0 3px;
+    background-color: #ffe6ff;
+    margin-top: 5px;
+}
+main button {
+    font-size: 1.3rem;
+}
+main label {
+    display: block;
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+li:first-child {
+    width: 40px;
+    height: max-content;
+}
+li:first-child img {
+    width: 100%;
+}
+li:first-child a {
+    padding: 4px;
+    padding-bottom: 0;
+    border: solid #9421e0 3px;
+    background-color: #ffe6ff;
+}
+
+li:last-child {
+    margin-top: 30px;
+    width: 35%;;
+    align-self: flex-end;
+}
