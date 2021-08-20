@@ -128,22 +128,21 @@ def executeCommand(manager, command, decryption_key):
     elif command == "reset":
         manager.reset_session()
         return manager
-    elif command == "print_all":
+    elif command == "print_all" or command == "p":
         print(manager.all__data_string())
-        input("press ENTER to continue")
         return manager
     opcode, *addressing_mode = command.split()
-    if opcode == "add":
+    if opcode == "add" or opcode == "a":
         manager.add(addressing_mode[0], addressing_mode[1], addressing_mode[2], decryption_key)
         return manager
-    elif opcode == "get":
+    elif opcode == "get" or opcode == "g":
         print("\n" + manager.get(addressing_mode[0], addressing_mode[1], decryption_key))
         return manager
     elif opcode == "delete":
         if addressing_mode:
             manager.delete(addressing_mode[0], addressing_mode[1], decryption_key)
             return manager
-    elif opcode == "print_group":
+    elif opcode == "print_group" or opcode == "pg":
         print(manager.group_data_string(addressing_mode[0]))
         return manager
     else:
