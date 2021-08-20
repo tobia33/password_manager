@@ -1,5 +1,5 @@
---------------------------------------------------
---------------------------------------------------
+======================================================================
+----------------------------------------------------------------------
 
     - stora i dati col json e prova a farlo creando
       un branch nuovo cosi vedi sti branch
@@ -10,4 +10,5 @@
 
     - aggiungi al get un check di key e group prima di inserire la decryption key
 
-    - come cazzo faccio a fare il delete se ho sbagliato a scrivere la DECRYPTION KEY?
+----------------------------------------------------------------------
+======================================================================
