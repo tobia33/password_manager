@@ -67,6 +67,10 @@ class Manager:
         file.write(data_string)
         file.close()
 
+    def add_decription(self, group, string):
+        """ add notes to a group, as if it is a username"""
+        self.add(self, group, "notes", string,  "false")
+
     def add(self, group, key, value, decryption_key):
         """ add a key and a value inside the chosen group
             the  value will be encrypted with the given decryption key
@@ -93,6 +97,7 @@ class Manager:
         if decryption_key != "false":
             value = manager_support.decrypt(value, decryption_key)
         return key + ": " + value + "\n"
+
 
     def delete(self, group, key, decryption_key):
         """ deletes the specified key or group

@@ -6,7 +6,6 @@ import manager_exceptions
 import manager_support
 from getpass import getpass
 
-
 os.system("clear")
 partial_welcome_string = "Welcome to Password Manager!"
 wrapping_lines = "#"*50 + "\n\t"
