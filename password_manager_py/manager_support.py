@@ -1,3 +1,4 @@
+from PyQt5.QtCore import dec
 from cryptography.fernet import Fernet
 import manager_exceptions
 "------------------------------cryptography------------------------------"
@@ -33,7 +34,9 @@ def addExpl():
     """ return the explanation of the command add """
     return "\tsyntax: add group key value\n" + \
            "\tadd value in the specified group and with the specified key\n" + \
-           "\tthe value is encrypted using the decryption_key asked via prompt\n" + \
+           "\tthe value is encrypted using the decryption_key asked via prompt\n" \
+           "\tthe decryption key is what you will use to access this password again" \
+           "\tif you forget it you will not be able to access to your encrypted password ever again\n" \
            "\tif the decryption_key is False the value will not be encrypted\n\n"
 
 
@@ -117,7 +120,7 @@ def explanationManager(command):
 "------------------------------execute command------------------------------"
 
 
-def executeCommand(manager, command, decryption_key):
+def executeCommand(manager, command):
     """ recognize the command and execute it """
     if command == "undo":
         manager.undo()
@@ -132,18 +135,46 @@ def executeCommand(manager, command, decryption_key):
         print(manager.all__data_string())
         return manager
     opcode, *addressing_mode = command.split()
-    if opcode == "add" or opcode == "a":
-        manager.add(addressing_mode[0], addressing_mode[1], addressing_mode[2], decryption_key)
-        return manager
-    elif opcode == "get" or opcode == "g":
-        print("\n" + manager.get(addressing_mode[0], addressing_mode[1], decryption_key))
-        return manager
-    elif opcode == "delete":
-        if addressing_mode:
-            manager.delete(addressing_mode[0], addressing_mode[1], decryption_key)
-            return manager
-    elif opcode == "print_group" or opcode == "pg":
+    if opcode == "print_group" or opcode == "pg":
         print(manager.group_data_string(addressing_mode[0]))
         return manager
+    elif opcode == "add" or opcode == "a":
+        decryption_key = "first"
+        while decryption_key == "first" or decryption_key == "h" or decryption_key == "help":
+            decryption_key = input("what decryption key do you want to use?\n"
+                               ">if you don't know what I'm asking for write 'h' or 'help'\n"
+                               ">if you want to go back write 'b' or 'back'")
+            if decryption_key == "b" or decryption_key == "back":
+                return manager
+            elif decryption_key == "help" or decryption_key == "h":
+                print(addExpl())
+        manager.add(addressing_mode[0], addressing_mode[1], addressing_mode[2], decryption_key)
+        return manager
+    manager.check_group(addressing_mode[0])
+    manager.check_key(addressing_mode[1])
+    if opcode == "get" or opcode == "g":
+        decryption_key = "first"
+        while decryption_key == "first" or decryption_key == "h" or decryption_key == "help":
+            decryption_key = input("what decryption key do you want to use?\n"
+                               ">if you don't know what I'm asking for write 'h' or 'help'\n"
+                               ">if you want to go back write 'b' or 'back'")
+            if decryption_key == "b" or decryption_key == "back":
+                return manager
+            elif decryption_key == "help" or decryption_key == "h":
+                print(getExpl())
+        print("\n" + manager.get(addressing_mode[0], addressing_mode[1], decryption_key))
+        return manager
+    elif opcode == "delete" or opcode == "d":
+        decryption_key = "first"
+        while decryption_key == "first" or decryption_key == "h" or decryption_key == "help":
+            decryption_key = input("what decryption key do you want to use?\n"
+                                   ">if you don't know what I'm asking for write 'h' or 'help'\n"
+                                   ">if you want to go back write 'b' or 'back'")
+            if decryption_key == "b" or decryption_key == "back":
+                return manager
+            elif decryption_key == "help" or decryption_key == "h":
+                print(delExpl())
+            manager.delete(addressing_mode[0], addressing_mode[1], decryption_key)
+            return manager
     else:
         raise manager_exceptions.CommandNotFoundException

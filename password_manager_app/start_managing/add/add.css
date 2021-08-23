@@ -16,17 +16,17 @@ h1 {
     text-align: center;
     font-family: roman serif;
 }
-#description {
+#more_info {
     grid-row: 5;
     border: solid #9421e0 3px;
     background-color: #ffe6ff;
     border-radius: 15px;
-    padding: 7px;
-    font-size: 1.1rem
-}
-#description h3 {
-    font-size: 1.4rem;
+    font-size: 1.1rem;
     text-align: center;
+}
+#more_info:first-line{
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 main {
     grid-row: 3;

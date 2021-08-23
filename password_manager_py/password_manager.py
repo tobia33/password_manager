@@ -36,14 +36,8 @@ while True:
         continue
     nonExplanation = manager_support.explanationManager(command)
     if nonExplanation:
-        decryption_key = None
-        if command[:3] == "add" or command[0] == "a"or command[:3] == "get"\
-                or command[0] == "g":
-            decryption_key = input("write the decryption key you want to use\n")
-        elif command[:6] == "delete":
-            decryption_key = getpass("write the decryption key needed to decrypt this password\n")
         try:
-            manager = manager_support.executeCommand(manager, command, decryption_key)
+            manager = manager_support.executeCommand(manager, command)
         except Exception as e:
             if isinstance(e, manager_exceptions.GroupNotFoundException):
                 print("\nthe given group is invalid, try changing it!\n")

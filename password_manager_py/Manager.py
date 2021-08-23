@@ -84,15 +84,21 @@ class Manager:
         self.data_table.setdefault(group, {})
         self.data_table[group][key] = value
 
+    def check_group(self, string):
+        """ check if the given group is in the data set """
+        if not string in self.data_table.keys():
+            raise manager_exceptions.GroupNotFoundException
+
+    def check_key(self, string):
+        """ check if the given key is in the data set """
+        if not string in self.data_table.values():
+            raise manager_exceptions.KeyNotFoundException
+
     def get(self, group, key, decryption_key):
         """ get the value for the specified group and key
             the value will be decrypted using the given decryption key
             if decryption_key is 'false' the value will not be decrypted
             raise an error if the group or the key are not found"""
-        if group not in self.data_table:
-            raise manager_exceptions.GroupNotFoundException
-        if key not in self.data_table[group]:
-            raise manager_exceptions.KeyNotFoundException
         value = self.data_table[group][key]
         if decryption_key != "false":
             value = manager_support.decrypt(value, decryption_key)
@@ -104,10 +110,6 @@ class Manager:
             raise an error if the group or the key are not found"""
         # salvo contenuto nello stack
         self.stack_undo.append(copy.deepcopy(self.data_table))
-        if group not in self.data_table:
-            raise manager_exceptions.GroupNotFoundException
-        if key not in self.data_table[group]:
-            raise manager_exceptions.KeyNotFoundException
         try:
             self.get(group, key, decryption_key)
         except Exception as e:
