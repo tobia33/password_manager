@@ -69,7 +69,7 @@ class Manager:
 
     def add_decription(self, group, string):
         """ add notes to a group, as if it is a username"""
-        self.add(self, group, "notes", string,  "false")
+        self.add(group, "notes", string,  "false")
 
     def add(self, group, key, value, decryption_key):
         """ add a key and a value inside the chosen group
@@ -86,12 +86,12 @@ class Manager:
 
     def check_group(self, string):
         """ check if the given group is in the data set """
-        if not string in self.data_table.keys():
+        if string not in self.data_table.keys():
             raise manager_exceptions.GroupNotFoundException
 
     def check_key(self, string):
         """ check if the given key is in the data set """
-        if not string in self.data_table.values():
+        if string not in self.data_table.values():
             raise manager_exceptions.KeyNotFoundException
 
     def get(self, group, key, decryption_key):
@@ -99,11 +99,16 @@ class Manager:
             the value will be decrypted using the given decryption key
             if decryption_key is 'false' the value will not be decrypted
             raise an error if the group or the key are not found"""
-        value = self.data_table[group][key]
+        value = ""
+        for password in self.data_table[group]:
+            if password == key or password[:len(key)] == key:
+                value = self.data_table[group][password]
+                break
+        if not value:
+            raise manager_exceptions.KeyNotFoundException
         if decryption_key != "false":
             value = manager_support.decrypt(value, decryption_key)
-        return key + ": " + value + "\n"
-
+        return password + ": " + value + "\n"
 
     def delete(self, group, key, decryption_key):
         """ deletes the specified key or group
@@ -147,12 +152,14 @@ class Manager:
 
     def group_data_string(self, group):
         """ prints the data in data_table of a single group  """
-        if group not in self.data_table:
-            raise manager_exceptions.GroupNotFoundException
-        data_string = "\n\t# " + group + ":"
+        data_string_1 = "\n\t# " + group + ":"
+        data_string_2 = ""
+        data_string_3 = ""
         for key in self.data_table[group]:
-            if self.data_table[group][key][-1] == "=" or len(self.data_table[group][key]) > 99:
-                data_string += "\n\t\t- " + key + " : " + "********"
+            if key == "notes":
+                data_string_2 = "\n\t@ notes : " + self.data_table[group][key]
+            elif self.data_table[group][key][-1] == "=" or len(self.data_table[group][key]) > 99:
+                data_string_3 += "\n\t\t- " + key + " : " + "********"
             else:
-                data_string += "\n\t\t- " + key + " : " + self.data_table[group][key]
-        return data_string
+                data_string_3 += "\n\t\t- " + key + " : " + self.data_table[group][key]
+        return data_string_1 + data_string_2 + data_string_3

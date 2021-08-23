@@ -4,11 +4,5 @@
     - stora i dati col json e prova a farlo creando
       un branch nuovo cosi vedi sti branch
 
-    - aggiungi una descrizione alle password
-      e un metodo per aggiungere, modificare
-      e cancellare ste cazzo di descrizioni
-
-    - aggiungi al get un check di key e group prima di inserire la decryption key
-
 ----------------------------------------------------------------------
 ======================================================================

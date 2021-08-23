@@ -4,7 +4,6 @@ from cryptography.fernet import InvalidToken
 import Manager
 import manager_exceptions
 import manager_support
-from getpass import getpass
 
 os.system("clear")
 partial_welcome_string = "Welcome to Password Manager!"
