@@ -8,34 +8,33 @@
         <link rel="stylesheet" href="/password_manager_app/css_global/my_setup.css">
         <link rel="stylesheet" href="/password_manager_app/css_global/footer.css">
         <link rel="stylesheet" href="add.css">
-
-        
     </head>
     <body>
         <div id="wrapper">
         <h1>PASSWORD MANAGER</h1>
-        <div id="description">
-                <h3>ADD</h3>
-                <p>
-                    the add command adds into the data set a password <br>
-                    you choose a password name and a group in which to store your data <br>
-                    you also give a decryption key, that is the key
-                    around which your password will be encrypted, in other words
-                    the only password you are not allowed to forget!
-                </p>
-            </div>
+        
         <main>
             <ul>
                 <li><a class="block" href="/password_manager_app/start_managing/start.html"><img src="/password_manager_app/images/go_back.png" alt="back"/></a></li>
                 <li><label for="group">group name</label></li>
                 <li><input id="group" type="text"></li>
-                <li><label for="password">password name</label></li>
+                <li><label for="password_name">password name</label></li>
+                <li><input id="password_name" type="text"></li>
+                <li><label for="password">password</label></li>
                 <li><input id="password" type="text"></li>
                 <li><label for="decryption_key">decryption key</label></li>
                 <li><input id="decryption_key" type="text"></li>
                 <li><button>submit</button></li>
             </ul>
         </main>
+        <button id="more_info"> ? <br> Click here if you don't know what to write in the fields</button>
+
+        <!--    group name: the name of the group (e.g. bank) <br>
+                password name: the name with which you refer to the password (e.g password, recovery code) <br>
+                password: the password (or code) <br>
+                decryption key: the key the program encrypts your password with <br>
+                <strong>BE CAREFUL:</strong> the decryption key is the only way you can access again to the password!<br>
+                <strong>DO NOT FORGET IT!</strong> -->
         <footer>
             <div id="contact_txt">
                 if you want you can contact me! <br>
