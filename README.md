@@ -17,3 +17,5 @@ if you don't the password can no longer be decrypted and can never be recovered.
 The encryption is made using the Fernet encryption from the python cryptography library
 
 Password manager is a python program, to use it you should download the password_manager_py directory and execute password_manager.py
+
+a GUI idea for an application using html css was in development but it is not anymore
