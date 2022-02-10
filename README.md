@@ -1,7 +1,7 @@
 # password manager
 
 Password manager is a program that (can you guess?) manages passwords.
-You can add passwords, delete passwords, see passwords... well that's about it
+You can add passwords, delete passwords, see passwords... well that's about it,
 so what makes this program worth your time?
 
 For starters it's real simple to use and it's real simple to get information if you are lost!

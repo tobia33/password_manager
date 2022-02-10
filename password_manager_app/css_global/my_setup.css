@@ -16,6 +16,12 @@ a.block {
     width: 100%;
     text-align: center;
 }
+a.block_2{
+    text-decoration: none;
+    color: currentColor;
+    display: block;
+    text-align: center;
+}
 button.block {}
 a:visited {
     color:currentColor;

@@ -148,6 +148,8 @@ def executeCommand(manager, command):
         return manager
     # the commands below have arguments
     opcode, *addressing_mode = command.split()
+    if not addressing_mode:
+        raise manager_exceptions.CommandNotFoundException
     if opcode == "add" or opcode == "a":
         decryption_key = "first"
         while decryption_key == "first" or decryption_key == "h" or decryption_key == "help":
@@ -182,6 +184,8 @@ def executeCommand(manager, command):
                 print(getExpl())
         print("\n" + manager.get(addressing_mode[0], addressing_mode[1], decryption_key))
         return manager
+    if not addressing_mode[1]:
+        raise manager_exceptions.CommandNotFoundException
     # for the commands below I need to check if the key exists
     manager.check_key(addressing_mode[1])
     if opcode == "delete" or opcode == "d":
